@@ -15,6 +15,7 @@ function start() {
 
     // Handlers
     client.on('ready', botFns.printReady);
+    client.on('message', botFns.handleMessage);
     botFns.login(client);
 }
 

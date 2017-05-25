@@ -32,6 +32,11 @@ function checkEnvironment() {
         hasError = true;
     }
 
+    // Plugins prefix
+    if (typeof process.env.PLUGINS == 'undefined' || process.env.PLUGINS.length == 0) {
+        winston.log('warn', 'No plugins configured in environment file');
+    }
+
     if (hasError) {
         process.exit();
     }
