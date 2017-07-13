@@ -1,5 +1,6 @@
 const winston = require('winston');
 const pfx = process.env.PREFIX;
+const util = require('./utilities');
 
 module.exports = {
     handleMessage: handleMessage,
@@ -7,12 +8,23 @@ module.exports = {
     printReady: printReady
 }
 
-function handleMessage(msg) {
+function handleMessage(msg, plugins) {
     // Prefix determines if the bot cares about the message
     var prefix = process.env.PREFIX;
     if (!msg.content.startsWith(prefix)) return;
 
-    console.log(msg.content);
+    var content = util.parseContent(msg.content);
+    winston.log('info', 'Recieved command from \'' + msg.author.username + '\': ' + msg.content);
+
+    for (var key in plugins.plugins) {
+        if (!plugins.plugins.hasOwnProperty(key)) continue;
+
+        var plugin = plugins.plugins[key];
+        if (plugin.keyword.toUpperCase() == content.keyword.toUpperCase()) {
+            plugin.doAction(msg, content.args);
+            break;
+        }
+    }
 }
 
 function login(bot) {
@@ -21,5 +33,5 @@ function login(bot) {
 }
 
 function printReady() {
-    winston.log('info', 'LodBot ready')
+    winston.log('info', 'LodBot ready');
 }

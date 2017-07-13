@@ -17,8 +17,12 @@ function start() {
     // Handlers
     plugins.register();
     client.on('ready', botFns.printReady);
-    client.on('message', botFns.handleMessage);
+    client.on('message', handleMessageWrapper);
     botFns.login(client);
+}
+
+function handleMessageWrapper(msg) {
+    botFns.handleMessage(msg, plugins);
 }
 
 start();

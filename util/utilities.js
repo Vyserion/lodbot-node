@@ -1,10 +1,11 @@
 const winston = require('winston');
 
 module.exports = {
-    checkEnvironment: checkEnvironment
+    checkEnvironment: checkEnvironment,
+    parseContent: parseContent
 }
 
-function checkEnvironment() {
+function checkEnvironment(msg, args) {
     var hasError = false;
 
     // Logging level
@@ -42,4 +43,23 @@ function checkEnvironment() {
     }
 
     winston.log('info', 'All required environment values found');
+}
+
+function parseContent(content) {
+    // Splits out a content string into it's keyword and arguments.
+
+    // Remove the prefix
+    content = content.substring(1);
+
+    // Filter the rest of the content
+    var contentObj = {};
+    if (content.indexOf(' ') > -1) {
+        contentObj['keyword'] = content.substring(0, content.indexOf(" "));
+        contentObj['args'] = content.substring(content.indexOf(" "), content.length);
+    } else {
+        contentObj['keyword'] = content;
+        contentObj['args'] = '';
+    }
+
+    return contentObj;
 }
