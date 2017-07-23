@@ -4,6 +4,7 @@ const logger = require('./util/logger');
 
 const botFns = require('./util/bot');
 const util = require('./util/utilities');
+const database = require('./util/database');
 const plugins = require('./util/plugins');
 
 require('dotenv').config();
@@ -13,6 +14,7 @@ function start() {
 
     // Startup
     util.checkEnvironment();
+    database.createConnection();
 
     // Handlers
     plugins.register();

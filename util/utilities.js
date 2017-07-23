@@ -55,7 +55,7 @@ function parseContent(content) {
     var contentObj = {};
     if (content.indexOf(' ') > -1) {
         contentObj['keyword'] = content.substring(0, content.indexOf(" "));
-        contentObj['args'] = content.substring(content.indexOf(" "), content.length);
+        contentObj['args'] = content.substring(content.indexOf(" "), content.length).trim();
     } else {
         contentObj['keyword'] = content;
         contentObj['args'] = '';
