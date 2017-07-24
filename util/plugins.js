@@ -13,10 +13,10 @@ function register() {
 
     for (var i = 0; i < pluginNames.length; i++) {
         var name = pluginNames[i];
-        var path = 'plugins/' + name + '.js';
+        var path = 'plugins/' + name + '/plugin.js';
 
         if (fs.existsSync(path)) {
-            var plugin = require('../plugins/' + name);
+            var plugin = require('../plugins/' + name + '/plugin');
             plugins[name] = plugin;
             winston.log('info', 'Plugin \'' + name + '\' loaded.')
         } else {

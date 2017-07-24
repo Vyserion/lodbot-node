@@ -1,5 +1,5 @@
 const winston = require('winston');
-const pjson = require('../package.json');
+const pjson = require('../../package.json');
 
 const keyword = 'about';
 
