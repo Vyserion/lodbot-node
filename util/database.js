@@ -37,6 +37,7 @@ function getCollection(collectionName, objectName) {
 
 function updateInCollection(collectionName, object) {
     var collection = dbReference.collection(collectionName);
+    console.log(object);
     collection.updateOne(
         { name: object.name },
         object,
