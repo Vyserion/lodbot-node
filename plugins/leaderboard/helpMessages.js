@@ -23,11 +23,10 @@ function printHelpMessage(msg) {
     response += '-a \n';
     response += 'Creates a new row inside a leaderboard. It requires the following information: \n';
     response += '    - *Leaderboard Name* - The name of the leaderboard to add to. \n';
-    response += '    - *Row Names* - The name of the row to add. For multiple rows, these can be seperated by commas.\n';
-    response += '    - *Row Values* - Optional. Allows rows to be created with values. Used in the format of ColumnName:Value. Seperated by semicolons. Each row is seperated by commas. If provided for one column, must be provided for all.';
+    response += '    - *Row Names* - The rows to add. For multiple rows, these can be seperated by semicolons. To include values, add a colon, and then list the values with their column names, split by commas.\n';
     response += 'For example: \n';
-    response += '    !leaderboard -a {Leaderboard Name} {Row Names} {Row Values}\n';
-    response += '    !leaderboard -a LeaderboardName NewRowName,NewRowName2 Column1:1;Column2:2,Column1:1;Column2:3\n\n';
+    response += '    !leaderboard -a {Leaderboard Name} {New Rows}\n';
+    response += '    !leaderboard -a LeaderboardName RowName;RowName;RowName:Column1=2,Column2=4\n\n';
     // Update Row
     response += '**Update Row** \n';
     response += '-u \n';
@@ -72,6 +71,11 @@ function printLeaderboardNotFoundMessage(msg, leaderboardName) {
     msg.reply(response);
 }
 
+function printRowIncorrectColumnsMessage(msg, column) {
+    var response = 'The column ' + column + ' is not correct. Please check the help message and try again.';
+    msg.reply(response);
+}
+
 module.exports = {
     printNoArgumentsMessage: printNoArgumentsMessage,
     printHelpMessage: printHelpMessage,
@@ -80,5 +84,6 @@ module.exports = {
     printLeaderboardExistsMessage: printLeaderboardExistsMessage,
     printNewLeaderboardMessage: printNewLeaderboardMessage,
     printErrorMessage: printErrorMessage,
-    printLeaderboardNotFoundMessage: printLeaderboardNotFoundMessage
+    printLeaderboardNotFoundMessage: printLeaderboardNotFoundMessage,
+    printRowIncorrectColumnsMessage: printRowIncorrectColumnsMessage
 }
