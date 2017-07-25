@@ -23,14 +23,11 @@ function createConnection() {
 }
 
 function insertToCollection(collectionName, data) {
-    dbReference.collection(collectionName, function(err, collectionReference) {
-        collectionReference.insert(data, function(err, result) {
-            // Do something with the data here
-        })
-    })
+    var collection = dbReference.collection(collectionName);
+    return collection.insert(data);
 }
 
-function getCollection(collectionName, objectName) {
+function getCollection(collectionName) {
     var collection = dbReference.collection(collectionName);
     return collection.find().toArray();
 }
